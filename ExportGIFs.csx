@@ -8,6 +8,7 @@ using ImageMagick;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Text.RegularExpressions;
 
 // Settings
 bool doSelected = false;
@@ -176,11 +177,12 @@ void DumpSprite(UndertaleSprite sprite)
 		return;
 
 	string filename = texFolder + sprite.Name.Content;
-
+	
 	if (sortByUnderscore)
 	{
 		filename = texFolder + sprite.Name.Content.Replace("_", "\\");
-
+		filename = Regex.Replace(filename, "\\+", "\\");
+		
 		string directoryPath = Path.GetDirectoryName(filename);
 		if (!Directory.Exists(directoryPath))
 			Directory.CreateDirectory(directoryPath);
